@@ -8,13 +8,55 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <mem.h>
 
+char cversion[] = "1.3\n";
+char downlURL[] = "github.com/olback/gta-session/releases";
 int tabInTime = 5; // Time before the process begins.
 int time = 10; // Time before unblocking ports. Change to a higher value if it doesn't work. Change to a lower value if you get kicked.
 
 int main() {
 
-    system("cls"); // Clear command prompt.
+    printf("Checking for updates...\n");
+    system("powershell -C \"curl https://raw.githubusercontent.com/olback/gta-session/master/VERSION -OutFile latest-version.txt\"");
+    sleep(1);
+    int lineNumber = 0;
+
+    static const char filename[] = "latest-version.txt";
+    FILE *file = fopen(filename, "r");
+    int count = 0;
+    if ( file != NULL )
+    {
+        char line[256]; /* or other suitable maximum line size */
+        while (fgets(line, sizeof line, file) != NULL) /* read a line */
+        {
+            if (count == lineNumber)
+            {
+                //use line or in a function return it
+                //in case of a return first close the file with "fclose(file);"
+
+                if (strcmp(line,cversion) == 0) {
+                    printf("Already using latest version.\n");
+                } else {
+                    printf("Current version: %s",cversion);
+                    printf("New version: %s",line);
+                    printf("Download the latest version from %s", downlURL);
+                }
+
+                break;
+            }
+            else
+            {
+                count++;
+            }
+        }
+        fclose(file);
+        system("del latest-version.txt");
+    }
+    else
+    {
+        printf("Error checking for updates. :(\n");
+    }
 
     printf("Waiting for %d",tabInTime);
     printf(" seconds. Tab back in to the game.\n\n");
