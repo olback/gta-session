@@ -1,0 +1,4 @@
+"C:\Program Files\JetBrains\CLion 2017.1.3\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" A:\Documents\GitHub\gta-session
+-- Configuring done
+-- Generating done
+-- Build files have been written to: A:/Documents/GitHub/gta-session/cmake-build-debug

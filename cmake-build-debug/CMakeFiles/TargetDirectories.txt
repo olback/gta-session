@@ -1,0 +1,3 @@
+A:/Documents/GitHub/gta-session/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+A:/Documents/GitHub/gta-session/cmake-build-debug/CMakeFiles/GTAToggle.dir
+A:/Documents/GitHub/gta-session/cmake-build-debug/CMakeFiles/edit_cache.dir
