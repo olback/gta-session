@@ -11,7 +11,7 @@
 #include <mem.h>
 
 char cversion[] = "1.3\n";
-char downlURL[] = "github.com/olback/gta-session/releases";
+char downlURL[] = "github.com/olback/gta-session/releases\n";
 int tabInTime = 5; // Time before the process begins.
 int time = 10; // Time before unblocking ports. Change to a higher value if it doesn't work. Change to a lower value if you get kicked.
 
