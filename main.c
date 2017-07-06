@@ -2,7 +2,7 @@
  *  Made by Edwin Svensson.
  *  GitHub: github.com/olback
  *  Twitter: @Mrolback
- *  Licenced under Creative Commons v3.
+ *  Licenced under GNU Lesser General Public License v3.0.
  */
 
 #include <stdio.h>
