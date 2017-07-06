@@ -44,8 +44,14 @@ int main() {
 
     // Unblocking ports.
     printf("Unblocking traffic on these TCP ports: 80,443.\n");
-    printf("Unblocking traffic on these UDP ports: 6672,61455,61457,61456,61458.\n");
+    printf("Unblocking traffic on these UDP ports: 6672,61455,61457,61456,61458.\n\n");
     system("netsh advfirewall firewall set rule name=\"GTAToggle\" new enable=no > NUL");
+
+    // Clean up.
+    printf("Cleaning up.\n");
+    system("netsh advfirewall firewall del rule name=\"GTAToggle\" > NUL");
+
+    sleep(2);
 
     return 0;
 
