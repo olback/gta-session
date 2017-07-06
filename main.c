@@ -22,7 +22,7 @@ int main() {
 
     // Removing all old rules named 'GTAToggle'.
     printf("Removing old firewall rules named 'GTAToggle'.\n");
-    system("netsh advfirewall firewall del rule name=\"GTAToggle\" > NUL");
+    system("netsh advfirewall firewall del rule name=\"GTAToggle\" > NUL"); // Point output to NUL to suppress output from the command.
 
     // Adding rules named 'GTAToggle'.
     printf("Adding firewall rules named 'GTAToggle'\n\n");
