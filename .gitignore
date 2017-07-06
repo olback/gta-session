@@ -1,5 +1,5 @@
 # JetBrains IDE
-.idea/
+workspace.xml
 
 # Prerequisites
 *.d
