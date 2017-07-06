@@ -65,7 +65,8 @@ hr {
 
 footer {
     text-align: center;
-    bottom: 0px;
-    margin-bottom: 15px;
+    bottom: 5px;
+    width: 100%;
+    position: absolute;
 }
 
