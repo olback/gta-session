@@ -9,14 +9,27 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <mem.h>
+#include <windows.h>
 
-char cversion[] = "1.3\n";
-char downlURL[] = "github.com/olback/gta-session/releases\n";
+char cversion[] = "1.4ds\n";
+char downlURL[] = "github.com/olback/gta-session/releases\n\n";
 int tabInTime = 5; // Time before the process begins.
 int time = 10; // Time before unblocking ports. Change to a higher value if it doesn't work. Change to a lower value if you get kicked.
 
 int main() {
 
+    /* Set window title. */
+    SetConsoleTitle("GTAToggle");
+
+    /* Support for colored output */
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    WORD saved_attributes;
+    /* Save current attributes */
+    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+    saved_attributes = consoleInfo.wAttributes;
+
+    system("cls");
     printf("Checking for updates...\n");
     system("powershell -C \"curl https://raw.githubusercontent.com/olback/gta-session/master/VERSION -OutFile latest-version.txt\"");
     sleep(1);
@@ -25,36 +38,36 @@ int main() {
     static const char filename[] = "latest-version.txt";
     FILE *file = fopen(filename, "r");
     int count = 0;
-    if ( file != NULL )
-    {
+    if ( file != NULL ) {
         char line[256]; /* or other suitable maximum line size */
-        while (fgets(line, sizeof line, file) != NULL) /* read a line */
-        {
-            if (count == lineNumber)
-            {
+        while (fgets(line, sizeof line, file) != NULL) { /* read a line */
+            if (count == lineNumber) {
                 //use line or in a function return it
                 //in case of a return first close the file with "fclose(file);"
 
                 if (strcmp(line,cversion) == 0) {
-                    printf("Already using latest version.\n");
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+                    printf("Already using latest version.\n\n");
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
                 } else {
-                    printf("Current version: %s",cversion);
-                    printf("New version: %s",line);
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY);
+                    printf("New version available.\n");
+                    SetConsoleTextAttribute(hConsole, saved_attributes);
                     printf("Download the latest version from %s", downlURL);
                 }
 
                 break;
-            }
-            else
-            {
+
+            } else {
                 count++;
             }
         }
+
         fclose(file);
         system("del latest-version.txt");
-    }
-    else
-    {
+
+    } else {
+
         printf("Error checking for updates. :(\n");
     }
 
@@ -75,8 +88,8 @@ int main() {
     system("netsh advfirewall firewall set rule name=\"GTAToggle\" new enable=no > NUL");
 
     // Block ports.
-    printf("Blocking traffic on these TCP ports: 80,443.\n");
-    printf("Blocking traffic on these UDP ports: 6672,61455,61457,61456,61458.\n\n");
+    printf("Blocking network traffic on these TCP ports: 80,443.\n");
+    printf("Blocking network traffic on these UDP ports: 6672,61455,61457,61456,61458.\n\n");
     system("netsh advfirewall firewall set rule name=\"GTAToggle\" new enable=yes > NUL");
 
     // Wait before unblocking ports.
@@ -85,8 +98,8 @@ int main() {
     sleep(time);
 
     // Unblocking ports.
-    printf("Unblocking traffic on these TCP ports: 80,443.\n");
-    printf("Unblocking traffic on these UDP ports: 6672,61455,61457,61456,61458.\n\n");
+    printf("Unblocking network traffic on these TCP ports: 80,443.\n");
+    printf("Unblocking network traffic on these UDP ports: 6672,61455,61457,61456,61458.\n\n");
     system("netsh advfirewall firewall set rule name=\"GTAToggle\" new enable=no > NUL");
 
     // Clean up.
