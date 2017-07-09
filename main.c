@@ -11,7 +11,7 @@
 #include <mem.h>
 #include <windows.h>
 
-char cversion[] = "1.4\n";
+char cversion[] = "1.5\n";
 char downlURL[] = "github.com/olback/gta-session/releases\n\n";
 int tabInTime = 5; // Time before the process begins.
 int time = 10; // Time before unblocking ports. Change to a higher value if it doesn't work. Change to a lower value if you get kicked.
@@ -38,10 +38,19 @@ int main() {
 
             } else {
 
-                printf("Not running as an administrator.\nExiting...\n");
                 fclose(isAdmin);
                 system("del isAdmin.txt");
-                sleep(2);
+                printf("Not running as an administrator.\n");
+                /* For the love of god, please fix this... */
+                system("echo Set WshShell = WScript.CreateObject(\"WScript.Shell\") > start.vbs");
+                system("echo If WScript.Arguments.Length = 0 Then >> start.vbs");
+                system("echo   Set ObjShell = CreateObject(\"Shell.Application\") >> start.vbs");
+                system("echo   ObjShell.ShellExecute \"GTAToggle.exe\" _ >> start.vbs");
+                system("echo     , \"\"\"\" ^& WScript.ScriptFullName ^& \"\"\" RunAsAdministrator\", , \"runas\", 1 >> start.vbs");
+                system("echo   \nWScript.Quit >> start.vbs");
+                system("echo End if >> start.vbs");
+                system("C:\\Windows\\System32\\cscript.exe \"start.vbs\">NUL");
+                system("del start.vbs");
                 exit(0);
 
             }
