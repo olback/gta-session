@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "A:/Documents/GitHub/gta-session")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "A:/Documents/GitHub/gta-session/cmake-build-debug")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "A:/Documents/GitHub/gta-session/cmake-build-relwithdebinfo")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)
