@@ -21,7 +21,6 @@ int main() {
     // Set window title.
     SetConsoleTitle("GTAToggle");
 
-
     /* Check if the user is admin or not. Ref for popen: https://msdn.microsoft.com/en-us/library/96ayss4b.aspx */
     /* Would like to remove this 'is admin?' part all together and replace is with a manifest. */
     char psBuffer[128];
@@ -56,7 +55,6 @@ int main() {
     if (feof(pPipe)) {
         _pclose(pPipe);
     }
-
 
     /* Check for updates */
     /* A nicer way to check for updates wouldn't hurt... */
