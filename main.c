@@ -43,6 +43,7 @@ int main() {
 
             printf("Not running as an administrator.\nPrompting for permissions.\n");
 
+            // Run itself with higher permissions.
             system("powershell.exe Start-Process GTAToggle.exe -Verb runAs");
 
             exit(0);
