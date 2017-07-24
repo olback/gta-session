@@ -1,5 +1,4 @@
 # JetBrains IDE
-workspace.xml
 cmake-build-relwithdebinfo/
 .idea/
 
