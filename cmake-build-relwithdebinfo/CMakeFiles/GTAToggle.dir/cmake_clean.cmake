@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/GTAToggle.dir/main.c.obj"
-  "CMakeFiles/GTAToggle.dir/gta.rc.obj"
+  "CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj"
   "GTAToggle.pdb"
   "GTAToggle.exe"
   "GTAToggle.exe.manifest"

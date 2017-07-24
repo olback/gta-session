@@ -122,14 +122,14 @@ GTAToggle/fast:
 	$(MAKE) -f CMakeFiles\GTAToggle.dir\build.make CMakeFiles/GTAToggle.dir/build
 .PHONY : GTAToggle/fast
 
-gta.obj: gta.rc.obj
+gtatoggle.obj: gtatoggle.rc.obj
 
-.PHONY : gta.obj
+.PHONY : gtatoggle.obj
 
 # target to build an object file
-gta.rc.obj:
-	$(MAKE) -f CMakeFiles\GTAToggle.dir\build.make CMakeFiles/GTAToggle.dir/gta.rc.obj
-.PHONY : gta.rc.obj
+gtatoggle.rc.obj:
+	$(MAKE) -f CMakeFiles\GTAToggle.dir\build.make CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj
+.PHONY : gtatoggle.rc.obj
 
 main.obj: main.c.obj
 
@@ -167,7 +167,7 @@ help:
 	@echo ... rebuild_cache
 	@echo ... GTAToggle
 	@echo ... edit_cache
-	@echo ... gta.obj
+	@echo ... gtatoggle.obj
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

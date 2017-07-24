@@ -13,7 +13,7 @@ set(CMAKE_C_COMPILER_ID "GNU")
 set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_RC
-  "C:/Users/0009edsv500/AppData/Roaming/GitHub/gta-session/gta.rc" "C:/Users/0009edsv500/AppData/Roaming/GitHub/gta-session/cmake-build-relwithdebinfo/CMakeFiles/GTAToggle.dir/gta.rc.obj"
+  "C:/Users/0009edsv500/AppData/Roaming/GitHub/gta-session/gtatoggle.rc" "C:/Users/0009edsv500/AppData/Roaming/GitHub/gta-session/cmake-build-relwithdebinfo/CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj"
   )
 
 # The include file search paths:

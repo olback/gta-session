@@ -82,7 +82,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/0009edsv500/AppData/Roaming/GitHub/gta-session/gta.rc">
+		<Unit filename="C:/Users/0009edsv500/AppData/Roaming/GitHub/gta-session/gtatoggle.rc">
 			<Option target="GTAToggle"/>
 		</Unit>
 		<Unit filename="C:/Users/0009edsv500/AppData/Roaming/GitHub/gta-session/main.c">

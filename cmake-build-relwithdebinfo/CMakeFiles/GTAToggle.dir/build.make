@@ -80,32 +80,32 @@ CMakeFiles/GTAToggle.dir/main.c.obj.provides: CMakeFiles/GTAToggle.dir/main.c.ob
 CMakeFiles/GTAToggle.dir/main.c.obj.provides.build: CMakeFiles/GTAToggle.dir/main.c.obj
 
 
-CMakeFiles/GTAToggle.dir/gta.rc.obj: CMakeFiles/GTAToggle.dir/flags.make
-CMakeFiles/GTAToggle.dir/gta.rc.obj: ../gta.rc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session\cmake-build-relwithdebinfo\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building RC object CMakeFiles/GTAToggle.dir/gta.rc.obj"
-	C:\MinGW\bin\windres.exe  -O coff $(RC_DEFINES) $(RC_INCLUDES) $(RC_FLAGS) C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session\gta.rc CMakeFiles\GTAToggle.dir\gta.rc.obj
+CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj: CMakeFiles/GTAToggle.dir/flags.make
+CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj: ../gtatoggle.rc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session\cmake-build-relwithdebinfo\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building RC object CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj"
+	C:\MinGW\bin\windres.exe  -O coff $(RC_DEFINES) $(RC_INCLUDES) $(RC_FLAGS) C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session\gtatoggle.rc CMakeFiles\GTAToggle.dir\gtatoggle.rc.obj
 
-CMakeFiles/GTAToggle.dir/gta.rc.obj.requires:
+CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj.requires:
 
-.PHONY : CMakeFiles/GTAToggle.dir/gta.rc.obj.requires
+.PHONY : CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj.requires
 
-CMakeFiles/GTAToggle.dir/gta.rc.obj.provides: CMakeFiles/GTAToggle.dir/gta.rc.obj.requires
-	$(MAKE) -f CMakeFiles\GTAToggle.dir\build.make CMakeFiles/GTAToggle.dir/gta.rc.obj.provides.build
-.PHONY : CMakeFiles/GTAToggle.dir/gta.rc.obj.provides
+CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj.provides: CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj.requires
+	$(MAKE) -f CMakeFiles\GTAToggle.dir\build.make CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj.provides.build
+.PHONY : CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj.provides
 
-CMakeFiles/GTAToggle.dir/gta.rc.obj.provides.build: CMakeFiles/GTAToggle.dir/gta.rc.obj
+CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj.provides.build: CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj
 
 
 # Object files for target GTAToggle
 GTAToggle_OBJECTS = \
 "CMakeFiles/GTAToggle.dir/main.c.obj" \
-"CMakeFiles/GTAToggle.dir/gta.rc.obj"
+"CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj"
 
 # External object files for target GTAToggle
 GTAToggle_EXTERNAL_OBJECTS =
 
 GTAToggle.exe: CMakeFiles/GTAToggle.dir/main.c.obj
-GTAToggle.exe: CMakeFiles/GTAToggle.dir/gta.rc.obj
+GTAToggle.exe: CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj
 GTAToggle.exe: CMakeFiles/GTAToggle.dir/build.make
 GTAToggle.exe: CMakeFiles/GTAToggle.dir/linklibs.rsp
 GTAToggle.exe: CMakeFiles/GTAToggle.dir/objects1.rsp
@@ -119,7 +119,7 @@ CMakeFiles/GTAToggle.dir/build: GTAToggle.exe
 .PHONY : CMakeFiles/GTAToggle.dir/build
 
 CMakeFiles/GTAToggle.dir/requires: CMakeFiles/GTAToggle.dir/main.c.obj.requires
-CMakeFiles/GTAToggle.dir/requires: CMakeFiles/GTAToggle.dir/gta.rc.obj.requires
+CMakeFiles/GTAToggle.dir/requires: CMakeFiles/GTAToggle.dir/gtatoggle.rc.obj.requires
 
 .PHONY : CMakeFiles/GTAToggle.dir/requires
 
