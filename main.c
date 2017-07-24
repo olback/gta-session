@@ -11,7 +11,7 @@
 #include <mem.h>
 #include <windows.h>
 
-static const char cversion[] = "1.7dev\n";                                      // Current version.
+static const char cversion[] = "1.7\n";                                      // Current version.
 static const char downlURL[] = "github.com/olback/gta-session/releases\n\n";    // Link to the latest release.
 static const int tabInTime = 5;                                                 // Time before the process begins. AKA the time you have to tab back in to the game.
 static const int time = 10;                                                     // Time to block ports. Increase if it doesn't work. Decrease if you get kicked from your session.

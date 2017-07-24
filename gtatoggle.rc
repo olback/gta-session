@@ -15,7 +15,7 @@ BEGIN
       VALUE "InternalName", "gta"
       VALUE "LegalCopyright", "GNU Lesser General Public License v3.0"
       VALUE "ProductName", "GTAToggle"
-      VALUE "ProductVersion", "1.7dev"
+      VALUE "ProductVersion", "1.7"
     END
   END
   BLOCK "VarFileInfo"
