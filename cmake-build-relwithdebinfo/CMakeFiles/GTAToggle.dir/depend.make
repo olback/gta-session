@@ -3,3 +3,5 @@
 
 CMakeFiles/GTAToggle.dir/main.c.obj: ../main.c
 
+CMakeFiles/GTAToggle.dir/gta.rc.obj: ../gta.rc
+

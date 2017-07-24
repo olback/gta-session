@@ -47,10 +47,10 @@ RM = "C:\Program Files\JetBrains\CLion 2017.1.3\bin\cmake\bin\cmake.exe" -E remo
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = A:\Documents\GitHub\gta-session
+CMAKE_SOURCE_DIR = C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = A:\Documents\GitHub\gta-session\cmake-build-relwithdebinfo
+CMAKE_BINARY_DIR = C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session\cmake-build-relwithdebinfo
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,9 +79,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start A:\Documents\GitHub\gta-session\cmake-build-relwithdebinfo\CMakeFiles A:\Documents\GitHub\gta-session\cmake-build-relwithdebinfo\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session\cmake-build-relwithdebinfo\CMakeFiles C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session\cmake-build-relwithdebinfo\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start A:\Documents\GitHub\gta-session\cmake-build-relwithdebinfo\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session\cmake-build-relwithdebinfo\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,15 @@ GTAToggle/fast:
 	$(MAKE) -f CMakeFiles\GTAToggle.dir\build.make CMakeFiles/GTAToggle.dir/build
 .PHONY : GTAToggle/fast
 
+gta.obj: gta.rc.obj
+
+.PHONY : gta.obj
+
+# target to build an object file
+gta.rc.obj:
+	$(MAKE) -f CMakeFiles\GTAToggle.dir\build.make CMakeFiles/GTAToggle.dir/gta.rc.obj
+.PHONY : gta.rc.obj
+
 main.obj: main.c.obj
 
 .PHONY : main.obj
@@ -158,6 +167,7 @@ help:
 	@echo ... rebuild_cache
 	@echo ... GTAToggle
 	@echo ... edit_cache
+	@echo ... gta.obj
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

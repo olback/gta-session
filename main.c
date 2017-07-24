@@ -21,42 +21,6 @@ int main() {
     // Set window title.
     SetConsoleTitle("GTAToggle");
 
-    /* Check if the user is admin or not. Ref for popen: https://msdn.microsoft.com/en-us/library/96ayss4b.aspx */
-    /* Would like to remove this 'is admin?' part all together and replace is with a manifest. */
-    char psBuffer[128];
-    FILE *pPipe;
-
-    if ((pPipe = _popen(
-            "powershell \" $user = [Security.Principal.WindowsIdentity]::GetCurrent();(New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)\"",
-            "rt")) == NULL) {
-        exit(1);
-    }
-
-    // Read pipe until end of file, or an error occurs.
-    while (fgets(psBuffer, 128, pPipe)) {
-
-        if (psBuffer[0] == 84) { // 84 is Decimal for the letter 'T' and 70 is the decimal for 'F'.
-
-            // Already running as an admin.
-
-        } else {
-
-            printf("Not running as an administrator.\nPrompting for permissions.\n");
-
-            // Run itself with higher permissions.
-            system("powershell.exe Start-Process GTAToggle.exe -Verb runAs");
-
-            exit(0);
-
-        }
-
-    }
-
-    // Close pipe and print return value of pPipe.
-    if (feof(pPipe)) {
-        _pclose(pPipe);
-    }
-
     /* Check for updates */
     /* A nicer way to check for updates wouldn't hurt... */
     printf("Checking for updates...\n");

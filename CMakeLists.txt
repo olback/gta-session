@@ -3,5 +3,5 @@ project(gta)
 
 set(CMAKE_C_STANDARD 99)
 
-set(SOURCE_FILES main.c)
+set(SOURCE_FILES main.c gta.rc)
 add_executable(GTAToggle ${SOURCE_FILES})
