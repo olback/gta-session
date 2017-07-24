@@ -1,6 +1,6 @@
 # JetBrains IDE
-#cmake-build-relwithdebinfo/
-#.idea/
+cmake-build-relwithdebinfo/
+.idea/
 
 # Prerequisites
 *.d
