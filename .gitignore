@@ -1,6 +1,6 @@
 # JetBrains IDE
 workspace.xml
-cmake-build-relwithdebinfo/CMakeFiles/
+cmake-build-relwithdebinfo/
 .idea/
 
 # Prerequisites
