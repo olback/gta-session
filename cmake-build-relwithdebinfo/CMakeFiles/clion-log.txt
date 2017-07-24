@@ -1,4 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2017.1.3\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "CodeBlocks - MinGW Makefiles" C:\Users\0009edsv500\AppData\Roaming\GitHub\gta-session
--- Configuring done
--- Generating done
--- Build files have been written to: C:/Users/0009edsv500/AppData/Roaming/GitHub/gta-session/cmake-build-relwithdebinfo
