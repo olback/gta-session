@@ -6,7 +6,7 @@ Have you ever experienced this wierd thing where everyone in your session just l
 This program blocks a few ports in your Windows Firewall for 10 seconds.
 
 ## OS Support
-Only tested on Windows 10 but *SHOULD* work on Windows 8 and 8.1 as well.
+Only tested on Windows 10 but *SHOULD* work on Windows 8.1 as well.
 
 ## Is it safe to use? Can i get banned?
 Yes i'd say it's safe. R* would have to monitor ALL of your firewall rules and make sure you can't modify any of them while GTA is running to get you banned.
