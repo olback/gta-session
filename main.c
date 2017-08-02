@@ -1,107 +1,193 @@
 /*
- *  Made by Edwin Svensson.
+ *  Made by olback.
  *  GitHub: github.com/olback
  *  Twitter: @Mrolback
  *  Licenced under GNU Lesser General Public License v3.0.
+ *
+ *  printf() is only used for debugging. Output will never be shown to the user.
+ *
+ *  You might say 'Just use system() instead of running a file with ShellExecute()'.
+ *  No, i can't do that since the system opens a command prompt which minimizes a full screen application.
+ *
+ *  When you create files, use the %tmp% folder.
+ *  Nope, doesn't work.
+ *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <mem.h>
 #include <windows.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "var.h"
 
-static const char cversion[] = "1.7\n";                                      // Current version.
-static const char downlURL[] = "github.com/olback/gta-session/releases\n\n";    // Link to the latest release.
-static const int tabInTime = 5;                                                 // Time before the process begins. AKA the time you have to tab back in to the game.
-static const int time = 10;                                                     // Time to block ports. Increase if it doesn't work. Decrease if you get kicked from your session.
+LRESULT CALLBACK WindowFunc(HWND, UINT, WPARAM, LPARAM);
 
-int main() {
+int WINAPI WinMain(HINSTANCE hThisInst, HINSTANCE hPrevInst, LPSTR Args, int WinMode)
+{
+	WNDCLASSEX WinClass = { 0 };
 
-    // Set window title.
-    SetConsoleTitle("GTAToggle");
+	WinClass.cbSize        = sizeof(WNDCLASSEX);
+	WinClass.hInstance     = hThisInst;
+	WinClass.lpszClassName = "BUTEXP";
+	WinClass.lpfnWndProc   = WindowFunc;
+	WinClass.style         = CS_NOCLOSE;
+	WinClass.hIcon         = LoadImage(hThisInst, "AppIcon", IMAGE_ICON, 256, 256, LR_DEFAULTCOLOR);
+    WinClass.hIconSm       = LoadImage(hThisInst, "AppIcon", IMAGE_ICON, 0, 0, LR_DEFAULTCOLOR);
+	WinClass.hCursor       = LoadCursor(NULL, IDC_ARROW);
+	WinClass.lpszMenuName  = NULL;
+	WinClass.cbClsExtra    = 0;
+	WinClass.cbWndExtra    = 0;
+	WinClass.hbrBackground = (HBRUSH) GetStockObject(LTGRAY_BRUSH);
 
-    /* Check for updates */
-    /* A nicer way to check for updates wouldn't hurt... */
-    printf("Checking for updates...\n");
-    system("powershell -C \"curl https://raw.githubusercontent.com/olback/gta-session/master/VERSION -OutFile latest-version\"");
-    static const char filenameLV[] = "latest-version";
-    FILE *latest_version = fopen(filenameLV, "r");
-    if (latest_version != NULL) {
-        char line[256]; /* or other suitable maximum line size */
-        while (fgets(line, sizeof line, latest_version) != NULL) { /* read a line */
-            if (strcmp(line, cversion) == 0) {
+	if (!RegisterClassEx(&WinClass)) {
+		MessageBox(NULL, "Cannot register class", "Windows error", MB_OK);
+		return 1;
+	}
 
-                // Close file.
-                fclose(latest_version);
+	HWND hWnd;
+	if (!(hWnd = CreateWindow("BUTEXP", name, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, wWidth, wHeight, NULL, NULL, hThisInst, NULL))) {
+		MessageBox(NULL, "Cannot create main window", "Windows error", MB_OK);
+		return 2;
 
-                // Remove latest-version.
-                int del_lv = remove("latest-version");
-                if (del_lv != 0) {
-                    printf("Error removing latest-version.");
-                }
-                printf("Already using latest version.\n\n");
+	}
 
-            } else {
+	ShowWindow(hWnd, WinMode);
+	UpdateWindow(hWnd);
 
-                // Close file.
-                fclose(latest_version);
+	MSG Message;
 
-                // Remove latest-version.
-                int del_lv = remove("latest-version");
-                if (del_lv != 0) {
-                    printf("Error removing latest-version.");
-                }
+	while (GetMessage(&Message, NULL, 0, 0) > 0)
+	{
+		TranslateMessage(&Message);
+		DispatchMessage(&Message);
+	}
 
-                printf("New version available.\n");
-                printf("Download the latest version from %s", downlURL);
+	return Message.wParam;
+}
 
-            }
 
-            break;
-        }
+LRESULT CALLBACK WindowFunc(HWND hWnd,UINT Message ,WPARAM wParam,LPARAM lParam)
+{
+	switch(Message)
+	{
 
-    } else {
+		case WM_CREATE:
+			CreateWindow("button", "Run", WS_VISIBLE | WS_CHILD | BS_FLAT, 20, 20, btnW, btnH, hWnd, (HMENU) 1001, NULL, NULL);
+            CreateWindow("button", "Close", WS_VISIBLE | WS_CHILD | BS_FLAT, 160, 20, btnW, btnH, hWnd, (HMENU) 1002, NULL, NULL);
+            CreateWindow("button", "Help", WS_VISIBLE | WS_CHILD | BS_FLAT, 300, 20, btnW, btnH, hWnd, (HMENU) 1003, NULL, NULL);
 
-        printf("Error checking for updates. :(\n");
-    }
+            UpdateWindow(hWnd);
+			break;
 
-    /* Wait X amount of seconds for the user to tab back in to GTA */
-    printf("Waiting for %d seconds. Tab back in to the game.\n\n", tabInTime);
-    sleep(tabInTime);
+		case WM_COMMAND:
+			switch (HIWORD(wParam))
+			{
+				case BN_CLICKED:
 
-    /* Removing all old rules named 'GTAToggle'. */
-    printf("Removing old firewall rules named 'GTAToggle'.\n");
-    system("netsh advfirewall firewall del rule name=\"GTAToggle\" > NUL"); // Point output to NUL to suppress output from the command.
+                    switch(wParam){
+                        case 1001: // Run
+                            printf("Run\n");
+                            CreateWindow("BUTTON", "Run", WS_DISABLED | WS_CHILD | SS_CENTER | BS_CENTER, 20, 20, btnW, btnH, hWnd, (HMENU) 1001, NULL, NULL);
+                            UpdateWindow(hWnd);
 
-    /* Adding rules named 'GTAToggle'. */
-    printf("Adding firewall rules named 'GTAToggle'.\n\n");
-    system("netsh advfirewall firewall add rule name=\"GTAToggle\" dir=in action=block protocol=TCP localport=80,443 > NUL");
-    system("netsh advfirewall firewall add rule name=\"GTAToggle\" dir=out action=block protocol=TCP localport=80,443 > NUL");
-    system("netsh advfirewall firewall add rule name=\"GTAToggle\" dir=in action=block protocol=UDP localport=6672,61455,61457,61456,61458 > NUL");
-    system("netsh advfirewall firewall add rule name=\"GTAToggle\" dir=out action=block protocol=UDP localport=6672,61455,61457,61456,61458 > NUL");
-    system("netsh advfirewall firewall set rule name=\"GTAToggle\" new enable=no > NUL");
+                            /* Wait X amount of seconds for the user to tab back in to GTA */
+                            CreateWindow("STATIC", "Waiting...", WS_VISIBLE | WS_CHILD | SS_CENTER | BS_CENTER, 160, 70, btnW, btnH, hWnd, (HMENU) 1004, NULL, NULL);
+                            UpdateWindow(hWnd);
+                            printf("Waiting...\n");
+                            sleep(tabInTime);
+                            CreateWindow("STATIC", "Running...", WS_VISIBLE | WS_CHILD | SS_CENTER | BS_CENTER, 160, 70, btnW, btnH, hWnd, (HMENU) 1004, NULL, NULL);
+                            UpdateWindow(hWnd);
+                            UpdateWindow(hWnd); // Requires two updates, i dunno why :/
+                            printf("Running...\n");
 
-    /* Block ports. */
-    printf("Blocking network traffic on these TCP ports: 80,443.\n");
-    printf("Blocking network traffic on these UDP ports: 6672,61455,61457,61456,61458.\n\n");
-    system("netsh advfirewall firewall set rule name=\"GTAToggle\" new enable=yes > NUL");
+                            if(startTimeout() == 0) {
+                                CreateWindow("STATIC", "Done!", WS_VISIBLE | WS_CHILD | SS_CENTER | BS_CENTER, 160, 70, btnW, btnH, hWnd, (HMENU) 1004, NULL, NULL);
+                                CreateWindow("BUTTON", "Run", WS_VISIBLE | WS_CHILD | BS_FLAT, 20, 20, btnW, btnH, hWnd, (HMENU) 1001, NULL, NULL);
+                                UpdateWindow(hWnd);
+                                printf("Done.\n");
+                            } else {
+                                CreateWindow("STATIC", "Failed!", WS_VISIBLE | WS_CHILD | SS_CENTER | BS_CENTER, 160, 70, btnW, btnH, hWnd, (HMENU) 1004, NULL, NULL);
+                            }
 
-    /* Wait before unblocking ports. */
-    printf("Waiting for %d", time);
-    printf(" seconds.\n\n");
-    sleep(time);
+                            break;
 
-    /* Unblocking ports. */
-    printf("Unblocking network traffic on these TCP ports: 80,443.\n");
-    printf("Unblocking network traffic on these UDP ports: 6672,61455,61457,61456,61458.\n\n");
-    system("netsh advfirewall firewall set rule name=\"GTAToggle\" new enable=no > NUL");
+                        case 1002: // Close
+                            printf("Exit\n");
+                            exit(0);
 
-    /* Clean up. */
-    printf("Cleaning up.\n");
-    system("netsh advfirewall firewall del rule name=\"GTAToggle\" > NUL");
+                        case 1003: // Help
+                            printf("Help\n");
+                            system(helpURL);
+                            break;
 
-    sleep(2);
+                        default:
+                            break;
+                    }
+
+					break;
+
+				default:
+					break;
+			}
+			break;
+
+		case WM_PAINT:
+			{
+				PAINTSTRUCT ps;
+				BeginPaint(hWnd, &ps);
+				EndPaint(hWnd, &ps);
+			}
+			break;
+
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			break;
+
+		default:
+			return DefWindowProc(hWnd, Message, wParam, lParam);
+	}
 
     return 0;
+}
+
+/* --- */
+
+int startTimeout() {
+
+    FILE *fa = fopen("1.bat", "w");
+    if (fa == NULL)
+    {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+    fprintf(fa, "%s\n", script1);
+    fclose(fa);
+    ShellExecute(hwndExec, "open", "1.bat", NULL, NULL, 0);
+    sleep(1);
+    int del_scr1 = remove("1.bat");
+    if (del_scr1 != 0) {
+        printf("Error removing 1.bat.\n");
+    }
+    printf("Step 1 done.\n");
+
+    printf("Slepping for %d seconds.\n",sleepTime);
+    sleep(sleepTime);
+
+    FILE *f2 = fopen("2.bat", "w");
+    if (f2 == NULL)
+    {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+    fprintf(f2, "%s\n", script2);
+    fclose(f2);
+    ShellExecute(hwndExec, "open", "2.bat", NULL, NULL, 0);
+    sleep(1);
+    int del_scr2 = remove("2.bat");
+    if (del_scr2 != 0) {
+        printf("Error removing 2.bat.\n");
+    }
+    printf("Step 2 done.\n");
+
+    return 0;
+
 }

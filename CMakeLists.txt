@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.7)
-project(gta)
+project(GTAToggle2)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 
-set(SOURCE_FILES main.c gtatoggle.rc)
-add_executable(GTAToggle ${SOURCE_FILES})
+#
+# Add 'gtatoggle2.rc' to the Source files!
+#
+
+set(SOURCE_FILES main.c var.h gtatoggle2.rc)
+add_executable(GTAToggle2 ${SOURCE_FILES})
