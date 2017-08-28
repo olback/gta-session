@@ -6,18 +6,20 @@
  *
  *  printf() is only used for debugging. Output will never be shown to the user.
  *
- *  You might say 'Just use system() instead of running a file with ShellExecute()'.
- *  No, i can't do that since the system opens a command prompt which minimizes a full screen application.
- *
- *  When you create files, use the %tmp% folder.
- *  Nope, doesn't work.
- *
  */
 
 #include <windows.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "var.h"
+
+#define btnW 120 // Button/Static width
+#define btnH 30 // Button/Static height
+
+static const char name[] = "GTAToggle 2.1";							  // Window title
+static const int wWidth = 450;                                        // Window width.
+static const int wHeight = 150;                                       // Window  height.
+static const int tabInTime = 5;                                       // Time before the process begins. AKA the time you have to tab back in to the game.
+static const int sleepTime = 10;                                      // Time to block ports. Increase if it doesn't work. Decrease if you get kicked from your session.
 
 LRESULT CALLBACK WindowFunc(HWND, UINT, WPARAM, LPARAM);
 
@@ -36,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hThisInst, HINSTANCE hPrevInst, LPSTR Args, int Win
 	WinClass.lpszMenuName  = NULL;
 	WinClass.cbClsExtra    = 0;
 	WinClass.cbWndExtra    = 0;
-	WinClass.hbrBackground = (HBRUSH) GetStockObject(LTGRAY_BRUSH);
+	WinClass.hbrBackground = (HBRUSH) GetStockObject(WHITE_BRUSH | WHITE_PEN);
 
 	if (!RegisterClassEx(&WinClass)) {
 		MessageBox(NULL, "Cannot register class", "Windows error", MB_OK);
@@ -44,7 +46,7 @@ int WINAPI WinMain(HINSTANCE hThisInst, HINSTANCE hPrevInst, LPSTR Args, int Win
 	}
 
 	HWND hWnd;
-	if (!(hWnd = CreateWindow("BUTEXP", name, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, wWidth, wHeight, NULL, NULL, hThisInst, NULL))) {
+	if (!(hWnd = CreateWindow("BUTEXP", name, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX, CW_USEDEFAULT, CW_USEDEFAULT, wWidth, wHeight, NULL, NULL, hThisInst, NULL))) {
 		MessageBox(NULL, "Cannot create main window", "Windows error", MB_OK);
 		return 2;
 
@@ -55,8 +57,7 @@ int WINAPI WinMain(HINSTANCE hThisInst, HINSTANCE hPrevInst, LPSTR Args, int Win
 
 	MSG Message;
 
-	while (GetMessage(&Message, NULL, 0, 0) > 0)
-	{
+	while (GetMessage(&Message, NULL, 0, 0) > 0) {
 		TranslateMessage(&Message);
 		DispatchMessage(&Message);
 	}
@@ -116,7 +117,7 @@ LRESULT CALLBACK WindowFunc(HWND hWnd,UINT Message ,WPARAM wParam,LPARAM lParam)
 
                         case 1003: // Help
                             printf("Help\n");
-                            system(helpURL);
+                            WinExec("cmd /c start https://github.com/olback/gta-session/blob/master/README.md", SW_HIDE);
                             break;
 
                         default:
@@ -149,43 +150,23 @@ LRESULT CALLBACK WindowFunc(HWND hWnd,UINT Message ,WPARAM wParam,LPARAM lParam)
     return 0;
 }
 
-/* --- */
-
 int startTimeout() {
 
-    FILE *fa = fopen("1.bat", "w");
-    if (fa == NULL)
-    {
-        printf("Error opening file!\n");
-        exit(1);
-    }
-    fprintf(fa, "%s\n", script1);
-    fclose(fa);
-    ShellExecute(hwndExec, "open", "1.bat", NULL, NULL, 0);
-    sleep(1);
-    int del_scr1 = remove("1.bat");
-    if (del_scr1 != 0) {
-        printf("Error removing 1.bat.\n");
-    }
-    printf("Step 1 done.\n");
+    // Block ports
+    WinExec("cmd /c netsh advfirewall firewall del rule name=GTAToggle", SW_HIDE);
+    WinExec("cmd /c netsh advfirewall firewall add rule name=GTAToggle dir=in action=block protocol=TCP localport=80,443", SW_HIDE);
+    WinExec("cmd /c netsh advfirewall firewall add rule name=GTAToggle dir=out action=block protocol=TCP localport=80,443", SW_HIDE);
+    WinExec("cmd /c netsh advfirewall firewall add rule name=GTAToggle dir=in action=block protocol=UDP localport=6672,61455,61457,61456,61458", SW_HIDE);
+    WinExec("cmd /c netsh advfirewall firewall add rule name=GTAToggle dir=out action=block protocol=UDP localport=6672,61455,61457,61456,61458", SW_HIDE);
+    WinExec("cmd /c netsh advfirewall firewall set rule name=GTAToggle new enable=yes", SW_HIDE);
 
-    printf("Slepping for %d seconds.\n",sleepTime);
+	// Wait ~10 seconds
     sleep(sleepTime);
 
-    FILE *f2 = fopen("2.bat", "w");
-    if (f2 == NULL)
-    {
-        printf("Error opening file!\n");
-        exit(1);
-    }
-    fprintf(f2, "%s\n", script2);
-    fclose(f2);
-    ShellExecute(hwndExec, "open", "2.bat", NULL, NULL, 0);
-    sleep(1);
-    int del_scr2 = remove("2.bat");
-    if (del_scr2 != 0) {
-        printf("Error removing 2.bat.\n");
-    }
+    // Unblock ports
+    WinExec("cmd /c netsh advfirewall firewall set rule name=GTAToggle new enable=no", SW_HIDE);
+    WinExec("cmd /c netsh advfirewall firewall del rule name=GTAToggle", SW_HIDE);
+
     printf("Step 2 done.\n");
 
     return 0;
