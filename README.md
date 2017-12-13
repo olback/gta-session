@@ -2,6 +2,8 @@
 ## Introduction
 Have you ever experienced this wierd thing where everyone in your session just leaves at the same time? Yeah me too. This happens more if your NAT type is strict. We can take advantage of this.
 
+## Works with GTA Online 1.42!
+
 ## How does this program work?
 This program blocks a few ports in your Windows Firewall for 10 seconds.
 
